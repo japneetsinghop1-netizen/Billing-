@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Plans | Nexus Nodes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #121826;
+            --premium-pink: #ff0080;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --font-inter: 'Inter', sans-serif;
+            --font-orbitron: 'Orbitron', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-inter);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: var(--bg-main);
+            position: relative;
+        }
+
+        /* Ambient Background Glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vh;
+            background: radial-gradient(circle, rgba(255, 0, 128, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo {
+            max-width: 40px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.2);
+        }
+
+        .site-name {
+            font-family: var(--font-orbitron);
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header-box {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 0, 128, 0.02);
+            border: 1px solid rgba(255, 0, 128, 0.1);
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        .page-title {
+            font-family: var(--font-orbitron);
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ff66b2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 0, 128, 0.3);
+        }
+
+        .plan-title {
+            font-family: var(--font-orbitron);
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .specs-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .plan-specs {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .plan-specs li {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plan-specs li::before {
+            content: '•';
+            color: #ff66b2;
+            font-weight: bold;
+        }
+
+        .plan-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ff66b2;
+            margin-bottom: 16px;
+        }
+
+        .btn-cart {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #261727;
+            border: 1px solid rgba(255, 0, 128, 0.2);
+            border-radius: 8px;
+            color: #ff66b2;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cart:hover {
+            background: var(--premium-pink);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(255, 0, 128, 0.2);
+        }
+
+        .included-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 28px;
+            margin-top: 40px;
+        }
+
+        .included-title {
+            font-family: var(--font-orbitron);
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .included-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .included-item {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .included-item::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--premium-pink);
+            border-radius: 50%;
+        }
+
+        footer {
+            background: #080b12;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            color: #475569;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .included-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="logo.jpg" alt="Logo" class="logo">
+            <a href="index.html" class="site-name">Nexus Nodes</a>
+        </div>
+        <a href="index.html" class="btn-back">Back to Home</a>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="page-header-box">
+            <h2 class="page-title">Premium Plans</h2>
+            <p class="page-subtitle">High Performance & Premium Experience at just ₹40 per GB</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div>
+                    <h3 class="plan-title">Premium 2GB</h3>
+                    <div class="specs-title">Hardware Profile</div>
+                    <ul class="plan-specs">
+                        <li>2GB DDR4 RAM</li>
+                        <li>250% vCore CPU</li>
+                        <li>40GB NVMe SSD</li>
+                        <li>Database: Data 3</li>
+                        <li>3 Backups</li>
+                        <li>4 Ports</li>
+                        <li>1Gbps Network</li>
+                        <li>DDoS Protection: Included</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="plan-price">₹80.00 / mo</div>
+                    <a href="https://discord.gg/f4ApduwJUf" target="_blank" class="btn-cart">Buy Plan</a>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <div>
+                    <h3 class="plan-title">Premium 4GB</h3>
+                    <div class="specs-title">Hardware Profile</div>
+                    <ul class="plan-specs">
+                        <li>4GB DDR4 RAM</li>
+                        <li>400% vCore CPU</li>
+                        <li>80GB NVMe SSD</li>
+                        <li>Database: Database 5</li>
+                        <li>5 Backups</li>
+                        <li>5 Ports</li>
+                        <li>1Gbps Network</li>
+                        <li>DDoS Protection: Included</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="plan-price">₹160.00 / mo</div>
+                    <a href="https://discord.gg/f4ApduwJUf" target="_blank" class="btn-cart">Buy Plan</a>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <div>
+                    <h3 class="plan-title">Premium 8GB</h3>
+                    <div class="specs-title">Hardware Profile</div>
+                    <ul class="plan-specs">
+                        <li>8GB DDR4 RAM</li>
+                        <li>600% vCore CPU</li>
+                        <li>160GB NVMe SSD</li>
+                        <li>Database: Data 8</li>
+                        <li>6 Backups</li>
+                        <li>6 Ports</li>
+                        <li>1Gbps Network</li>
+                        <li>DDoS Protection: Included</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="plan-price">₹320.00 / mo</div>
+                    <a href="https://discord.gg/f4ApduwJUf" target="_blank" class="btn-cart">Buy Plan</a>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <div>
+                    <h3 class="plan-title">Premium 16GB</h3>
+                    <div class="specs-title">Hardware Profile</div>
+                    <ul class="plan-specs">
+                        <li>16GB DDR4 RAM</li>
+                        <li>800% vCore CPU</li>
+                        <li>320GB NVMe SSD</li>
+                        <li>Database: Data Unlimited</li>
+                        <li>8 Backups</li>
+                        <li>8 Ports</li>
+                        <li>1Gbps Network</li>
+                        <li>DDoS Protection: Included</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="plan-price">₹640.00 / mo</div>
+                    <a href="https://discord.gg/f4ApduwJUf" target="_blank" class="btn-cart">Buy Plan</a>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <div>
+                    <h3 class="plan-title">Premium 32GB</h3>
+                    <div class="specs-title">Hardware Profile</div>
+                    <ul class="plan-specs">
+                        <li>32GB DDR4 RAM</li>
+                        <li>1200% vCore CPU</li>
+                        <li>640GB NVMe SSD</li>
+                        <li>Database: Unlimited</li>
+                        <li>12 Backups</li>
+                        <li>12 Ports</li>
+                        <li>1Gbps Network</li>
+                        <li>DDoS Protection: Included</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="plan-price">₹1280.00 / mo</div>
+                    <a href="https://discord.gg/f4ApduwJUf" target="_blank" class="btn-cart">Buy Plan</a>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <div>
+                    <h3 class="plan-title">Premium 48GB</h3>
+                    <div class="specs-title">Hardware Profile</div>
+                    <ul class="plan-specs">
+                        <li>48GB DDR4 RAM</li>
+                        <li>1600% vCore CPU</li>
+                        <li>960GB NVMe SSD</li>
+                        <li>Database: Unlimited</li>
+                        <li>16 Backups</li>
+                        <li>16 Ports</li>
+                        <li>1Gbps Network</li>
+                        <li>DDoS Protection: Included</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="plan-price">₹1920.00 / mo</div>
+                    <a href="https://discord.gg/f4ApduwJUf" target="_blank" class="btn-cart">Buy Plan</a>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <div>
+                    <h3 class="plan-title">Premium 64GB</h3>
+                    <div class="specs-title">Hardware Profile</div>
+                    <ul class="plan-specs">
+                        <li>64GB DDR4 RAM</li>
+                        <li>2000% Ryzen vCore CPU</li>
+                        <li>1280GB NVMe SSD</li>
+                        <li>Database: Unlimited</li>
+                        <li>25 Backups</li>
+                        <li>25 Ports</li>
+                        <li>1Gbps Network</li>
+                        <li>DDoS Protection: Included</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="plan-price">₹2560.00 / mo</div>
+                    <a href="https://discord.gg/f4ApduwJUf" target="_blank" class="btn-cart">Buy Plan</a>
+                </div>
+            </div>
+        </div>
+
+        <section class="included-box">
+            <h3 class="included-title">Included In Every Premium Plan:</h3>
+            <div class="included-grid">
+                <div class="included-item">Instant Setup</div>
+                <div class="included-item">Ultra Fast CPUs</div>
+                <div class="included-item">Enterprise NVMe SSDs</div>
+                <div class="included-item">Full Panel Access</div>
+                <div class="included-item">24/7 Uptime</div>
+                <div class="included-item">Premium Anti-Crash Protection</div>
+                <div class="included-item">Priority Support</div>
+                <div class="included-item">Better Node Performance</div>
+                <div class="included-item">Optimized For Heavy Usage</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p class="footer-text">&copy; 2026 Nexus Nodes. System monitoring active.</p>
+    </footer>
+
+</body>
+</html>
